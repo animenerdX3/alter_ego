@@ -17,7 +17,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import alter_ego.audio.VoiceManager;
-import alter_ego.data.DataParser;
+import alter_ego.parser.DataParser;
 
 public class AlterEgo extends BasicGameState implements ComponentListener {
 
@@ -27,6 +27,7 @@ public class AlterEgo extends BasicGameState implements ComponentListener {
 	private VoiceManager voice;
 	private Sound [] voiceFiles;
 	private int currentLine;
+	private String userName;
 	
 	//Player Controllers
 	private TextField data;
@@ -97,12 +98,12 @@ public class AlterEgo extends BasicGameState implements ComponentListener {
 				dataValue = data.getText();
 				new DataParser(dataValue);
 			}
-			temporaryCheck();
+			checkData();
 		}
 		
 	}//end of componentActivated
 	
-	public void temporaryCheck(){
+	public void checkData(){
 		if(dialogCounter == 0){
 			changeEgo("Umm...I don't understand that yet.", 25, 7);
 		}

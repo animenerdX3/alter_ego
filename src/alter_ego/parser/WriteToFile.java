@@ -1,4 +1,4 @@
-package alter_ego.data;
+package alter_ego.parser;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class WriteToFile {
 
+	
+	
 	public static void writeData(File file, String message) {
 		
 		BufferedWriter bw = null;
