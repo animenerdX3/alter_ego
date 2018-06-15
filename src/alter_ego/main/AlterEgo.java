@@ -54,7 +54,7 @@ public class AlterEgo extends BasicGameState implements ComponentListener {
 		//Create textbox
 		Font font = new Font("OCR A Extended", Font.ITALIC, 20);
 		TrueTypeFont ttf = new TrueTypeFont(font, true);
-		data = new TextField(gc, ttf, 0, 421, Launcher.WIDTH, 30, this);
+		data = new TextField(gc, ttf, 0, 421, Program.WIDTH, 30, this);
 		
 		alterEgoValue = "What Is Your Name?";
 		voiceFiles[currentLine].play(1f, voice.getVolume());
@@ -87,29 +87,27 @@ public class AlterEgo extends BasicGameState implements ComponentListener {
 		
 		//If esc key is pressed, close the program
 		if(input.isKeyPressed(Input.KEY_ESCAPE))
-			Launcher.appgc.exit();
+			Program.appgc.exit();
 		
 	}//end of menuFunctions
 	
 	public void componentActivated(AbstractComponent component) {
 		
+		DataParser generateData = null;
+		
 		if(component == data){
 			if(!data.getText().isEmpty()){
 				dataValue = data.getText();
-				new DataParser(dataValue);
+				generateData = new DataParser(dataValue);
 			}
-			checkData();
+			
+			communicate(generateData.getResponse());
 		}
 		
 	}//end of componentActivated
 	
-	public void checkData(){
-		if(dialogCounter == 0){
-			changeEgo("Umm...I don't understand that yet.", 25, 7);
-		}
-		if(dialogCounter == 1){
-			changeEgo("This is test data!", 23, 6);
-		}
+	public void communicate(String [] response){
+		changeEgo(response[0], Integer.parseInt(response[1]), Integer.parseInt(response[2]));
 		dialogCounter++;
 	}
 	

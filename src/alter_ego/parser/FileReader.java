@@ -16,12 +16,22 @@ public class FileReader {
 		fileToArrayList(fileObject);
 	}
 	
+	/**
+	 * Create a file object
+	 * @param directory - the directory of the file
+	 * @return
+	 */
 	private File getFile(String directory) {
 		
 		return new File(directory);
 		
 	}//end of getFile
 	
+	/**
+	 * 
+	 * @param file
+	 * @throws FileNotFoundException
+	 */
 	private void fileToArrayList(File file) throws FileNotFoundException {
 		
 		Scanner scan = new Scanner(file);
