@@ -16,6 +16,12 @@ public class FileReader {
 		fileToArrayList(fileObject);
 	}
 	
+	public FileReader(File fileObject) throws FileNotFoundException {
+		
+		this.fileData = new ArrayList<String>();
+		fileToArrayList(fileObject);
+	}
+	
 	/**
 	 * Create a file object
 	 * @param directory - the directory of the file

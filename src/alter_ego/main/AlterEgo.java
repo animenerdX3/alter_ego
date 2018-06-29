@@ -27,7 +27,6 @@ public class AlterEgo extends BasicGameState implements ComponentListener {
 	private VoiceManager voice;
 	private Sound [] voiceFiles;
 	private int currentLine;
-	private String userName;
 	
 	//Player Controllers
 	private TextField data;

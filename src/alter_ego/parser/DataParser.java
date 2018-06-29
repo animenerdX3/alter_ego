@@ -1,8 +1,11 @@
 package alter_ego.parser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import alter_ego.data.GenerateUser;
 import alter_ego.main.Program;
 
 public class DataParser {
@@ -23,11 +26,17 @@ public class DataParser {
 	
 	public void startParser() {
 		int responseGiven = 0;
+		String [] phrase = null;
 		for(int i = 0; i < lexicon.size(); i++) {
-			String [] phrase = lexicon.get(i).split(" ");
+			phrase = lexicon.get(i).split(" ");
 			responseGiven = phraseFound(phrase);
 			if(responseGiven > 0)
 				break;
+		}
+		
+		//if the response given is the first one found, this is the name of the user
+		if(responseGiven == 1) {
+			new GenerateUser(this.words[words.length - 1].toLowerCase());
 		}
 		
 		interpretResponse(responseGiven);
@@ -69,6 +78,7 @@ public class DataParser {
 			String [] feedback = splitData[1].split("/");
 			if(Integer.parseInt(feedback[0]) == responseGiven) {
 				String [] generateResponse = {splitData[0], feedback[1], feedback[2]};
+				generateResponse[0] = checkForData(generateResponse[0]);//Check if the response has any data in it
 				choiceResponses.add(generateResponse);
 			}
 		}
@@ -77,6 +87,40 @@ public class DataParser {
 		
 	}//end of interpretResponse
 	
+	public String checkForData(String response) {
+		FileReader userData = null;
+		String []  newwords = response.split(" ");
+		
+		for(int i = 0; i < newwords.length; i++) {
+			if(newwords[i].contains("username^")) {
+				try {
+					userData = new FileReader(new File("data/characters/"+Program.utilities.getUsername()+".chr"));
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				String [] caseCheck = newwords[i].split("^");
+				caseCheck[1].replaceAll("[^a-zA-Z ]", "").toLowerCase();
+				
+				
+				for(int x = 0; x < userData.getFileData().size(); x++) {
+					String [] userValues = userData.getFileData().get(x).split("~");
+					if(userValues[0].equalsIgnoreCase(caseCheck[1])) {
+						newwords[i] = userValues[1];
+					}
+				}
+			}
+		}
+		
+		String temp = newwords[0];
+		
+		for(int s = 1; s < newwords.length; s++)
+			temp.concat(" "+newwords[s]);
+		
+		
+		return temp;
+		
+	}//end of checkForData
+	
 	public void chooseResponse(ArrayList<String[]>choiceResponses) {
 		
 		Random ran = new Random();
@@ -84,6 +128,8 @@ public class DataParser {
 		this.response = choiceResponses.get(selectResponse);
 		
 	}//end of chooseResponse
+	
+	/*GETTERS*/
 	
 	public String getUserData(){
 		return userData;

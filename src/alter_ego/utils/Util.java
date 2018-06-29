@@ -9,6 +9,7 @@ public class Util {
 
 	private ArrayList<String>lexicon;
 	private ArrayList<String>responses;
+	private String username;
 	
 	public Util() {
 		createLexicon();
@@ -47,6 +48,10 @@ public class Util {
 		return responses;
 	}
 	
+	public String getUsername() {
+		return username;
+	}
+	
 	/*SETTERS*/
 	
 	public void setLexicon(ArrayList<String> lexicon) {
@@ -55,6 +60,10 @@ public class Util {
 	
 	public void setResponses(ArrayList<String> responses) {
 		this.responses = responses;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 }//end of class
