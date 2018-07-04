@@ -39,8 +39,8 @@ public class GenerateUser {
 				e.printStackTrace();
 			}
 			
-			Program.utilities.setUsername(this.username);
 		}
+		Program.utilities.setUsername(this.username);
 	}//end of makeUser
 	
 	/*GETTERS*/
