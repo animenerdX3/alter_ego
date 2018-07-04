@@ -25,21 +25,22 @@ public class GenerateUser {
 			e.printStackTrace();
 		}
 		
-		for(int i = 0; i < temp.getFileData().size(); i++) {
-			if(i == 0)//if the first iteration, this is the first line in the file
-				new WriteToFile(new File("data/characters/"+this.username+".chr"), temp.getFileData().get(i), false, true);
-			else
-				new WriteToFile(new File("data/characters/"+this.username+".chr"), temp.getFileData().get(i), false, false);
+		if(!new File("data/characters/"+this.username+".chr").exists()) {
+			for(int i = 0; i < temp.getFileData().size(); i++) {
+				if(i == 0)//if the first iteration, this is the first line in the file
+					new WriteToFile(new File("data/characters/"+this.username+".chr"), temp.getFileData().get(i), true, true);
+				else
+					new WriteToFile(new File("data/characters/"+this.username+".chr"), temp.getFileData().get(i), false, false);
+			}
+		
+			try {
+				new ChangeUserData(new File("data/characters/"+this.username+".chr"),"Name",this.username);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			Program.utilities.setUsername(this.username);
 		}
-		
-		try {
-			new ChangeUserData(new File("data/characters/"+this.username+".chr"),"Name",this.username);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		Program.utilities.setUsername(this.username);
-		
 	}//end of makeUser
 	
 	/*GETTERS*/

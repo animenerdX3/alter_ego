@@ -92,14 +92,14 @@ public class DataParser {
 		String []  newwords = response.split(" ");
 		
 		for(int i = 0; i < newwords.length; i++) {
-			if(newwords[i].contains("username^")) {
+			if(newwords[i].contains("username@")) {
 				try {
 					userData = new FileReader(new File("data/characters/"+Program.utilities.getUsername()+".chr"));
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-				String [] caseCheck = newwords[i].split("^");
-				caseCheck[1].replaceAll("[^a-zA-Z ]", "").toLowerCase();
+				String [] caseCheck = newwords[i].split("@");
+				caseCheck[1] = removePunctuation(caseCheck[1]);
 				
 				
 				for(int x = 0; x < userData.getFileData().size(); x++) {
@@ -114,12 +114,39 @@ public class DataParser {
 		String temp = newwords[0];
 		
 		for(int s = 1; s < newwords.length; s++)
-			temp.concat(" "+newwords[s]);
+			temp = temp.concat(" "+newwords[s]);
 		
 		
 		return temp;
 		
 	}//end of checkForData
+	
+	/**
+	 * 
+	 * @param text
+	 * @return the text without punctuation
+	 */
+	public String removePunctuation(String text) {
+		
+		text = text.toLowerCase();
+		char [] splitWord = text.toCharArray();
+		
+		ArrayList<Character>stringBuilder = new ArrayList<Character>();
+		
+		for(int i = 0; i < splitWord.length; i++) {
+			if(Character.isLetter(splitWord[i]))
+				stringBuilder.add(splitWord[i]);
+		}
+		
+		StringBuilder builder = new StringBuilder(stringBuilder.size());
+		
+		for(Character ch: stringBuilder) {
+		        builder.append(ch);
+		}
+
+		return builder.toString();
+
+	}//end of removePunctuation
 	
 	public void chooseResponse(ArrayList<String[]>choiceResponses) {
 		
@@ -128,6 +155,10 @@ public class DataParser {
 		this.response = choiceResponses.get(selectResponse);
 		
 	}//end of chooseResponse
+	
+	public void changeEmotion() {
+		
+	}
 	
 	/*GETTERS*/
 	
