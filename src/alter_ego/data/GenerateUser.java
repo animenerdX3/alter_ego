@@ -13,7 +13,9 @@ public class GenerateUser {
 	
 	public GenerateUser(String username) {
 		this.username = username;
-		makeUser();
+		if(!new File("data/characters/"+this.username+".chr").exists())
+			makeUser();
+		Program.utilities.setUsername(this.username);
 	}//end of GenerateUser
 	
 	public void makeUser() {
@@ -40,7 +42,6 @@ public class GenerateUser {
 			}
 			
 		}
-		Program.utilities.setUsername(this.username);
 	}//end of makeUser
 	
 	/*GETTERS*/

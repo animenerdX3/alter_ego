@@ -12,6 +12,7 @@ public class Util {
 	private String username;
 	
 	public Util() {
+		this.username = "stranger";
 		createLexicon();
 		createResponses();
 	}
